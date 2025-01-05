@@ -2,24 +2,22 @@
     --outside-radius: 0%;
     --dark-background: rgb(10, 10, 10);
 }
-  
 
 body {
     display: flex;
     height: 100vh;
     justify-content: center;
     align-items: center;
-    font-family: "Arial";
     background-color: var(--dark-background);
 }
 
 #calc-display {
     flex: 1;
-    font-size: 36pt;
+    font-size: 46pt;
     color: white;
     background-color: var(--dark-background);
     border-style: none;
-    padding: 6px;
+    padding: 0px, 12px;
     text-align: end;
     border-top-left-radius: var(--outside-radius);
     border-top-right-radius: var(--outside-radius);
@@ -39,7 +37,6 @@ body {
     display: flex;
     flex-direction: column;
     padding: 6px;
-    var(--outside-radius)
 }
 
 .button-row {

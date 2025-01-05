@@ -15,7 +15,7 @@ function operate(expression) {
         },
         
     };
-    
+
     operators["×"] = operators["*"];
     operators["÷"] = operators["/"];
 
@@ -45,12 +45,23 @@ function operate(expression) {
         return NaN;
     }
 
-    
-    return operators[sign](a, b);
+    let result = operators[sign](a, b);
+
+    if (isNaN(result)) {
+        return "NaN";
+    }
+
+    if (String(result).length > 8){
+        return result.toExponential()
+    }
+
+    return result;
 }
 
 function handleButtonPress(button) {
     const inputWindow = document.querySelector("#calc-display");
+
+    let parsed = [];
 
     switch (button.className) {
         case "number":
@@ -61,7 +72,7 @@ function handleButtonPress(button) {
             }
             return;
         case "operator":
-            const parsed = inputWindow.value.split(" ", 3);
+            parsed = inputWindow.value.split(" ", 3);
             if (parsed.length === 1) {
                 if (inputWindow.value == "NaN") {
                     inputWindow.value = "0";
@@ -77,7 +88,7 @@ function handleButtonPress(button) {
 
     switch (button.id) {
         case "=":
-            const parsed = inputWindow.value.split(" ");
+            parsed = inputWindow.value.split(" ");
             if (parsed.length === 1 || parsed.length === 2) {
                 return; // do nothing because user hasn't completed expression
             } else if (parsed.length === 3) {
@@ -89,6 +100,14 @@ function handleButtonPress(button) {
         case "AC":
             inputWindow.value = "0";
             return;
+        case ".":
+            const last = inputWindow.value.split(" ").at(-1);
+            if (!last.includes('.')) {
+                if (last === "") {
+                    inputWindow.value += '0';
+                }
+                inputWindow.value += '.';
+            }
     }
 }
 
