@@ -1,25 +1,74 @@
+:root {
+    --outside-radius: 0%;
+    --dark-background: rgb(10, 10, 10);
+}
+  
+
 body {
     display: flex;
+    height: 100vh;
     justify-content: center;
+    align-items: center;
+    font-family: "Arial";
+    background-color: var(--dark-background);
 }
 
 #calc-display {
     flex: 1;
+    font-size: 36pt;
+    color: white;
+    background-color: var(--dark-background);
+    border-style: none;
+    padding: 6px;
+    text-align: end;
+    border-top-left-radius: var(--outside-radius);
+    border-top-right-radius: var(--outside-radius);
+
 }
 
-#button-container {
+#calculator {
     display: flex;
     flex-direction: column;
     width: 300px;
-    height: 400px;
+    height: 450px;
+}
+
+#button-container {
+    flex: 5;
+    background-color: var(--dark-background);
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+    var(--outside-radius)
 }
 
 .button-row {
     display: flex;
     justify-content: center;
     flex: 1;
+    border-bottom-left-radius: var(--outside-radius);
+    border-bottom-right-radius: var(--outside-radius);
 }
 
 .button-row button {
-    flex: 1
+    flex: 1;
+    border-radius: 100%;
+    border-style: none;
+    margin: 3px;
+    font-size: 24pt;
+    color: white;
 }
+
+.number, .in-number-cluster {
+    background-color: rgb(42, 42, 42);
+}
+
+.operator, .equals {
+    background-color: orange;
+}
+
+.above-number-cluster {
+    background-color: gray;
+}
+
+
