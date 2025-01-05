@@ -47,7 +47,6 @@ function operate(expression) {
 function handleButtonPress(button) {
     const inputWindow = document.querySelector("#calc-display");
 
-
     switch (button.className) {
         case "number":
             if (inputWindow.value == "NaN" || inputWindow.value == "0") {
@@ -73,8 +72,14 @@ function handleButtonPress(button) {
 
     switch (button.id) {
         case "=":
-            const result = operate(inputWindow.value);
-            inputWindow.value = result;
+            const parsed = inputWindow.value.split(" ");
+            if (parsed.length === 1 || parsed.length === 2) {
+                return; // do nothing because user hasn't completed expression
+            } else if (parsed.length === 3) {
+                inputWindow.value = operate(inputWindow.value);
+            } else {
+                console.error(`Input window in unexpected state ${inputWindow.value}`);
+            }
             return;
         case "AC":
             inputWindow.value = "0";
