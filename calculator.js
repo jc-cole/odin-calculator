@@ -62,6 +62,7 @@ function handleButtonPress(button) {
     const inputWindow = document.querySelector("#calc-display");
 
     let parsed = [];
+    let last = "";
 
     switch (button.className) {
         case "number":
@@ -101,13 +102,26 @@ function handleButtonPress(button) {
             inputWindow.value = "0";
             return;
         case ".":
-            const last = inputWindow.value.split(" ").at(-1);
+            last = inputWindow.value.split(" ").at(-1);
             if (!last.includes('.')) {
                 if (last === "") {
                     inputWindow.value += '0';
                 }
                 inputWindow.value += '.';
             }
+            return;
+        case "+/-":
+            parsed = inputWindow.value.split(" ");
+            last = parsed[parsed.length - 1];
+            if (last === "") {
+                inputWindow.value += '-0';
+            } else {
+                // flip the sign by multiplying by -1
+                inputWindow.value = String(Number(last) * -1);
+            }
+            return;
+        case "%":
+            console.warn(`"%" button not implemented yet. `);
     }
 }
 
