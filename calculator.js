@@ -47,30 +47,49 @@ function operate(expression) {
 function handleButtonPress(button) {
     const inputWindow = document.querySelector("#calc-display");
 
+
     switch (button.className) {
         case "number":
-            inputWindow.value += button.id;
-            break;
+            if (inputWindow.value == "NaN" || inputWindow.value == "0") {
+                inputWindow.value = button.id;
+            } else {
+                inputWindow.value += button.id;
+            }
+            return;
         case "operator":
             const parsed = inputWindow.value.split(" ", 3);
             if (parsed.length === 1) {
+                if (inputWindow.value == "NaN") {
+                    inputWindow.value = "0";
+                }
                 // the spaces around the operator are required
                 inputWindow.value += ` ${button.id} `;
             } else { // the only other case is that it has length 3
                 parsed[1] = ` ${button.id} `;
                 inputWindow.value = parsed.join("");
             }
-            break;
-        default:
-            console.warn(`Button ${button.id} is not implemented yet.`)
+            return;
+    }
+
+    switch (button.id) {
+        case "=":
+            const result = operate(inputWindow.value);
+            inputWindow.value = result;
+            return;
+        case "AC":
+            inputWindow.value = "0";
+            return;
     }
 }
 
 const buttons = document.querySelectorAll("button");
 
+const inputWindow = document.querySelector("#calc-display");
+inputWindow.value = 0;
+
 buttons.forEach((button) => {
     button.addEventListener("click", (event) => {
         handleButtonPress(event.target);
-    })
+    });
 });
 
