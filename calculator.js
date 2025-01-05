@@ -12,8 +12,13 @@ function operate(expression) {
                 return NaN;
             }
             return a / b;
-        }
+        },
+        
     };
+    
+    operators["×"] = operators["*"];
+    operators["÷"] = operators["/"];
+
     const parsed = expression.split(" ");
     if (parsed.length !== 3) {
         console.error(
