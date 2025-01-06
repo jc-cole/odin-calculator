@@ -129,7 +129,13 @@ function handleButtonPress(button) {
             inputWindow.value = parsed.join(" ");
             return;
         case "%":
-            console.warn(`"%" button not implemented yet. `);
+            parsed = inputWindow.value.split(" ");
+            if (parsed[parsed.length - 1] === "") {
+                return;
+            } else {
+                parsed[parsed.length - 1] = String(Number(parsed[parsed.length - 1]) * 0.01);
+            }
+            inputWindow.value = parsed.join(" ");
             return;
         case "++":
             parse = inputWindow.value.split(" ");
