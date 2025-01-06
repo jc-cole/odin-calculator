@@ -5,7 +5,7 @@ const operators = {
     "/": (a, b) => {
         if (b === 0) {
             console.error(
-                `Zero division in expression "${expression}"`
+                `Zero division in expression"`
             );
             return NaN;
         }
