@@ -13,7 +13,9 @@ const operators = {
     },
     
 };
-operators["×"] = operators["*"];
+
+// pointing × and ÷ symbols to same function as * and /
+operators["×"] = operators["*"]; 
 operators["÷"] = operators["/"];
 
 function parseOperateInput(expression) {
@@ -55,13 +57,13 @@ function operate(expression) {
         return "NaN";
     }
 
-    if (String(result).length > 8){
+    if (String(result).length > inputWindow.maxLength){
         let parse = String(result).split(".");
         if (parse.length == 2) {
             if (parse[0].length > 7) {
                 return result.toExponential();
             } else {
-                return result.toFixed(7 - parse[0].length);
+                return result.toFixed(inputWindow.maxLength - 1 - parse[0].length);
             }
         } else {
             return result.toExponential();
@@ -81,7 +83,7 @@ const buttonPressEventHandlers = {
     },
 
     operator: (button, inputWindow) => {
-        const parsed = inputWindow.value.split(" ", 3);
+        const parsed = inputWindow.value.split(" ");
         if (parsed.length === 1) {
             if (inputWindow.value == "NaN") {
                 inputWindow.value = "0";
@@ -97,7 +99,7 @@ const buttonPressEventHandlers = {
     "=": (inputWindow) => {
         const parsed = inputWindow.value.split(" ");
         if (parsed.length === 1 || parsed.length === 2) {
-            return; // do nothing because user hasn't completed expression
+            return;
         } else if (parsed.length === 3) {
             inputWindow.value = operate(inputWindow.value);
         } else {
@@ -143,7 +145,6 @@ const buttonPressEventHandlers = {
         inputWindow.value = parse.join(" ");
         return;
     }
-
 }
 
 function handleButtonPress(button) {
