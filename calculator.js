@@ -52,7 +52,16 @@ function operate(expression) {
     }
 
     if (String(result).length > 8){
-        return result.toExponential()
+        let parse = String(result).split(".");
+        if (parse.length == 2) {
+            if (parse[0].length > 7) {
+                return result.toExponential();
+            } else {
+                return result.toFixed(7 - parse[0].length);
+            }
+        } else {
+            return result.toExponential();
+        }
     }
 
     return result;
@@ -122,6 +131,12 @@ function handleButtonPress(button) {
             return;
         case "%":
             console.warn(`"%" button not implemented yet. `);
+            return;
+        case "++":
+            parse = inputWindow.value.split(" ");
+            parse[parse.length - 1] = Number(parse[parse.length - 1]) + 1;
+            inputWindow.value = parse.join("");
+            return;
     }
 }
 
@@ -129,6 +144,7 @@ const buttons = document.querySelectorAll("button");
 
 const inputWindow = document.querySelector("#calc-display");
 inputWindow.value = 0;
+inputWindow.maxLength = 8;
 
 buttons.forEach((button) => {
     button.addEventListener("click", (event) => {
