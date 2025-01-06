@@ -121,13 +121,12 @@ function handleButtonPress(button) {
             return;
         case "+/-":
             parsed = inputWindow.value.split(" ");
-            last = parsed[parsed.length - 1];
-            if (last === "") {
-                inputWindow.value += '-0';
+            if (parsed[parsed.length - 1] === "") {
+                return;
             } else {
-                // flip the sign by multiplying by -1
-                inputWindow.value = String(Number(last) * -1);
+                parsed[parsed.length - 1] = String(Number(parsed[parsed.length - 1]) * -1);
             }
+            inputWindow.value = parsed.join(" ");
             return;
         case "%":
             console.warn(`"%" button not implemented yet. `);
@@ -135,7 +134,7 @@ function handleButtonPress(button) {
         case "++":
             parse = inputWindow.value.split(" ");
             parse[parse.length - 1] = Number(parse[parse.length - 1]) + 1;
-            inputWindow.value = parse.join("");
+            inputWindow.value = parse.join(" ");
             return;
     }
 }
@@ -151,4 +150,3 @@ buttons.forEach((button) => {
         handleButtonPress(event.target);
     });
 });
-
