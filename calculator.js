@@ -1,24 +1,22 @@
-function operate(expression) {
+const operators = {
+    "+": (a, b) => a + b,
+    "-": (a, b) => a - b,
+    "*": (a, b) => a * b,
+    "/": (a, b) => {
+        if (b === 0) {
+            console.error(
+                `Zero division in expression "${expression}"`
+            );
+            return NaN;
+        }
+        return a / b;
+    },
+    
+};
+operators["×"] = operators["*"];
+operators["÷"] = operators["/"];
 
-    const operators = {
-        "+": (a, b) => a + b,
-        "-": (a, b) => a - b,
-        "*": (a, b) => a * b,
-        "/": (a, b) => {
-            if (b === 0) {
-                console.error(
-                    `Zero division in expression "${expression}"`
-                );
-                return NaN;
-            }
-            return a / b;
-        },
-        
-    };
-
-    operators["×"] = operators["*"];
-    operators["÷"] = operators["/"];
-
+function parseOperateInput(expression) {
     const parsed = expression.split(" ");
     if (parsed.length !== 3) {
         console.error(
@@ -27,11 +25,11 @@ function operate(expression) {
         return NaN;
     }
 
-    const a = Number(parsed[0]);
+    const num1 = Number(parsed[0]);
     const sign = parsed[1];
-    const b = Number(parsed[2]);
+    const num2 = Number(parsed[2]);
 
-    if (isNaN(a) || isNaN(b)) {
+    if (isNaN(num1) || isNaN(num2)) {
         console.error(
             `Operate function passed invalid expression "${expression}"`
         );
@@ -45,7 +43,13 @@ function operate(expression) {
         return NaN;
     }
 
-    let result = operators[sign](a, b);
+    return [num1, sign, num2];
+}
+
+function operate(expression) {
+    let [num1, sign, num2] = parseOperateInput(expression);
+
+    let result = operators[sign](num1, num2);
 
     if (isNaN(result)) {
         return "NaN";
